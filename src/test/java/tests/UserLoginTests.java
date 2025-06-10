@@ -1,11 +1,9 @@
 package tests;
 
 import io.qameta.allure.*;
-import io.qameta.allure.junit4.AllureJunit4;
 import io.restassured.response.Response;
 import model.User;
 import org.junit.*;
-import org.junit.rules.TestRule;
 import utils.UserGenerator;
 
 import static org.junit.Assert.fail;

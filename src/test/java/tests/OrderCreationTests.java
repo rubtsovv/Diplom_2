@@ -2,12 +2,10 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
-import io.qameta.allure.junit4.AllureJunit4;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestRule;
 
 import java.util.List;
 
@@ -21,6 +19,18 @@ public class OrderCreationTests extends BaseTest {
     public void setUp() {
         registerAndLoginUser();
         loadIngredients();
+    }
+
+    @After
+    public void tearDown() {
+        if (accessToken != null) {
+            try {
+                Response deleteResponse = userClient.deleteUser(accessToken);
+                checks.checkStatusCode(deleteResponse, 202);
+            } catch (Exception e) {
+                System.err.println("Ошибка при удалении пользователя: " + e.getMessage());
+            }
+        }
     }
 
     @Step("Загрузить список ингредиентов")
